@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8A0BAEF1BC06C3500867749 /* StatusMenuWeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A0BAEE1BC06C3500867749 /* StatusMenuWeatherController.swift */; settings = {ASSET_TAGS = (); }; };
+		B8A0BAF11BC070B000867749 /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A0BAF01BC070B000867749 /* WeatherAPI.swift */; settings = {ASSET_TAGS = (); }; };
 		B8B546041BBA36D300CCB6A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B546031BBA36D300CCB6A0 /* AppDelegate.swift */; };
 		B8B546061BBA36D300CCB6A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8B546051BBA36D300CCB6A0 /* Assets.xcassets */; };
 		B8B546091BBA36D300CCB6A0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B546071BBA36D300CCB6A0 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B8A0BAEE1BC06C3500867749 /* StatusMenuWeatherController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuWeatherController.swift; sourceTree = "<group>"; };
+		B8A0BAF01BC070B000867749 /* WeatherAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		B8B546001BBA36D300CCB6A0 /* ForecastMenuBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ForecastMenuBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8B546031BBA36D300CCB6A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8B546051BBA36D300CCB6A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 				B8B546051BBA36D300CCB6A0 /* Assets.xcassets */,
 				B8B546071BBA36D300CCB6A0 /* MainMenu.xib */,
 				B8B5460A1BBA36D300CCB6A0 /* Info.plist */,
+				B8A0BAEE1BC06C3500867749 /* StatusMenuWeatherController.swift */,
+				B8A0BAF01BC070B000867749 /* WeatherAPI.swift */,
 			);
 			path = ForecastMenuBar;
 			sourceTree = "<group>";
@@ -127,7 +133,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8A0BAF11BC070B000867749 /* WeatherAPI.swift in Sources */,
 				B8B546041BBA36D300CCB6A0 /* AppDelegate.swift in Sources */,
+				B8A0BAEF1BC06C3500867749 /* StatusMenuWeatherController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +276,7 @@
 				B8B5460F1BBA36D300CCB6A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
