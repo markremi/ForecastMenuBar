@@ -31,21 +31,23 @@ class WeatherAPI {
     
     func extractJSON(data: NSData) -> Weather? {
         
-        typealias JSONDict = [String:AnyObject]
+//        typealias JSONDict = [String:AnyObject]
+//        
+//        var json: NSDictionary
+//        
+//        json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+//        
+//        if let items = json["items"] as? NSArray {
+//            
+//            // Loop through items here...
+//                var mainList = json["main"] as! JSONDict
+//                var weatherList = json["weather"] as! JSONDict
+//                var name = json["name"]as! String
+//                
+//            
+//        }
         
-        var json: NSDictionary
-        
-        json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
-        
-        if let items = json["items"] as? NSArray {
-            
-            // Loop through items here...
-                var mainList = json["main"] as! JSONDict
-                var weatherList = json["weather"] as! JSONDict
-                var name = json["name"]as! String
-                
-            
-        }
+        return Weather(city: "",currentTemp: 1,conditions: "")
         
     }
  
