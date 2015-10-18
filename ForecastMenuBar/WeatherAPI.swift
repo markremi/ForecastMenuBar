@@ -20,27 +20,48 @@ class WeatherAPI {
     
     // Base url for Openweathermap.
     let URL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&APPID=fecc856e95228926c6d5e20b245bde91&q="
-    
-    func getWeatherByCity(city: String) {
+   
+
+    func getWeatherByCity(city: String, completionHandler: (NSData?, NSError?) -> Void) -> NSURLSessionTask  {
         
         // Set up session.
         let session = NSURLSession.sharedSession()
-        let escapedQuery = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-
-        // Creating empty Weather
-        var weather : Weather? = nil
         
+        // Create API URL string.
+        let escapedQuery = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         let requestURL = NSURL(string: URL + escapedQuery!)
-        let task = session.dataTaskWithURL(requestURL!) {
+        
+        // Asynchronous call. Needs special handling.
+        let sessionTask = session.dataTaskWithURL(requestURL!) {
             (data, response, error) in
             
-            // Get weather from parseJSON
-            parseJSON(data!)!
+            // Using the completionHandler override so we can get this value synchronously (like the rest of the applicaiton)
+            completionHandler(data, error)
         }
         
-        task.resume()
-//        return weather
+        sessionTask.resume()
+        return sessionTask
     }
+    
+//    func getWeatherByCity(city: String) {
+//        
+//        // Set up session.
+//        let session = NSURLSession.sharedSession()
+//        let escapedQuery = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+//
+//        // Creating empty Weather
+//        var weather : Weather? = nil
+//        
+//        let requestURL = NSURL(string: URL + escapedQuery!)
+//        let task = session.dataTaskWithURL(requestURL!) {
+//            (data, response, error) in
+//            
+//            // Get weather from parseJSON
+//            parseJSON(data!)!
+//        }
+//        
+//        task.resume()
+//    }
     
     func parseJSON(data: NSData) -> Weather? {
         

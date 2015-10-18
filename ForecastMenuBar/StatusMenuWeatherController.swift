@@ -23,11 +23,27 @@ class StatusMenuWeatherController: NSObject {
     }
     
     @IBAction func refreshClicked(sender: NSMenuItem) {
-        var weather:Weather
+
         // Refresh local weather.
-//        weather.self =
-            weatherAPI.getWeatherByCity("Charleston, SC")
-//        statusItem.title = NSString(format: "%.1f", weather.currentTemp) as String
+        _ = weatherAPI.getWeatherByCity("Charleston, SC") { data, error in
+            
+            // Handle error.
+            if (error != nil) {
+                print ("Encountered error during API call:")
+                print (error)
+            }
+            
+            let weather = self.weatherAPI.parseJSON(data!)
+            
+            // Format Strings.
+            let temp = NSString(
+                format: "%.1f °F, ",
+                weather!.currentTemp) as String
+            let conditions = weather!.conditions.capitalizedString
+            
+            // Set values on status menu bar.
+            self.statusItem.title = temp + conditions
+        }
     }
     
     @IBAction func preferencesClicked(sender: NSMenuItem) {
