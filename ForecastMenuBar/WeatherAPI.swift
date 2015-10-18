@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 // Basic Weather object.
 struct Weather {
@@ -18,81 +19,57 @@ struct Weather {
 class WeatherAPI {
     
     // Base url for Openweathermap.
-    let URL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&q="
+    let URL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&APPID=fecc856e95228926c6d5e20b245bde91&q="
     
     func getWeatherByCity(city: String) {
         
         // Set up session.
         let session = NSURLSession.sharedSession()
-        let requestURL = NSURL(string: URL + city)
-        let task = session.dataTaskWithURL(requestURL!)
+        let escapedQuery = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
+
+        // Creating empty Weather
+        var weather : Weather? = nil
+        
+        let requestURL = NSURL(string: URL + escapedQuery!)
+        let task = session.dataTaskWithURL(requestURL!) {
+            (data, response, error) in
+            
+            // Get weather from parseJSON
+            parseJSON(data!)!
+        }
+        
+        task.resume()
+//        return weather
     }
     
-    
-    func extractJSON(data: NSData) -> Weather? {
+    func parseJSON(data: NSData) -> Weather? {
         
-//        typealias JSONDict = [String:AnyObject]
-//        
-//        var json: NSDictionary
-//        
-//        json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
-//        
-//        if let items = json["items"] as? NSArray {
-//            
-//            // Loop through items here...
-//                var mainList = json["main"] as! JSONDict
-//                var weatherList = json["weather"] as! JSONDict
-//                var name = json["name"]as! String
-//                
-//            
-//        }
+        let json = JSON(data: data)
+        if (json != nil) {
+            print("JSON value : ")
+            print(json)
+        } else {
+            print("JSON is nil!")
+        }
+
+        let city = json["name"].string
+        let temperature = json["main"]["temp"].float
         
-        return Weather(city: "",currentTemp: 1,conditions: "")
+        // List of weather codes
+        var id:Int
+        var main:String
+        var icon:String
+        var description = ""
+        
+        for climate in json["weather"].arrayValue {
+            id = climate["id"].intValue
+            main = climate["main"].stringValue
+            icon = climate["icon"].stringValue
+            description = climate["description"].stringValue
+        }
+        
+        // Build weather
+        return Weather(city: city!, currentTemp: temperature!, conditions: description)
         
     }
- 
-    
-    
-//     Sample JSON weather api
-//    {
-//        "coord": {
-//        "lon": -122.33,
-//        "lat": 47.61
-//    },
-//    "weather": [{
-//        "id": 802,
-//        "main": "Clouds",
-//        "description": "scattered clouds",
-//        "icon": "03d"
-//    }],
-//    "base": "cmc stations",
-//    "main": {
-//        "temp": 63.48,
-//        "pressure": 1016,
-//        "humidity": 42,
-//        "temp_min": 57,
-//        "temp_max": 66.99
-//    },
-//    "wind": {
-//        "speed": 6.7,
-//        "deg": 300
-//    },
-//    "clouds": {
-//        "all": 40
-//    },
-//    "dt": 1442961164,
-//    "sys": {
-//        "type": 1,
-//        "id": 2949,
-//        "message": 0.0165,
-//        "country": "US",
-//        "sunrise": 1442930230,
-//        "sunset": 1442973924
-//    },
-//    "id": 5809844,
-//    "name": "Seattle",
-//    "cod": 200
-//    }
-    
-    
 }

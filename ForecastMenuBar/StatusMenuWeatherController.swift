@@ -23,8 +23,11 @@ class StatusMenuWeatherController: NSObject {
     }
     
     @IBAction func refreshClicked(sender: NSMenuItem) {
+        var weather:Weather
         // Refresh local weather.
-        weatherAPI.getWeatherByCity("Seattle")
+//        weather.self =
+            weatherAPI.getWeatherByCity("Charleston, SC")
+//        statusItem.title = NSString(format: "%.1f", weather.currentTemp) as String
     }
     
     @IBAction func preferencesClicked(sender: NSMenuItem) {
