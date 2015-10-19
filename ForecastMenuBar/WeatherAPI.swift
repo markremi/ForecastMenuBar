@@ -99,10 +99,8 @@ class WeatherAPI {
         } else {
             print("JSON is nil!")
         }
-
        
         let httpCode = json["cod"].intValue
-
         
         // List of weather codes
         var id:Int

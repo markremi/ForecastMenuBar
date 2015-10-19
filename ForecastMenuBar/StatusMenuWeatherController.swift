@@ -8,7 +8,10 @@
 
 import Cocoa
 let DEFAULT_CITY: String = "Charleston, SC"
-let ERROR_MESSAGE = "..Trouble retrieving data"
+let DEFAULT_TIMER_INTERVAL : NSTimeInterval = 1800
+let INTERNET_CONNECTIVITY_ERROR = "..We are off the grid."
+let HTTP_ERROR = "..Trouble retrieving data."
+
 
 class StatusMenuWeatherController: NSObject {
     
@@ -24,6 +27,7 @@ class StatusMenuWeatherController: NSObject {
         statusItem.menu = statusMenu
         
         updateWeather()
+        enableRefreshOnInterval(DEFAULT_TIMER_INTERVAL)
     }
     
     /**
@@ -41,14 +45,14 @@ class StatusMenuWeatherController: NSObject {
             if (error != nil) {
                 print ("Encountered error during API call:")
                 print (error)
-                self.statusItem.title = ERROR_MESSAGE
+                self.statusItem.title = INTERNET_CONNECTIVITY_ERROR
                 return
             }
             
             let weather = self.weatherAPI.parseJSON(data!)
             
             if (weather?.httpCode != 200) {
-                self.statusItem.title = ERROR_MESSAGE
+                self.statusItem.title = HTTP_ERROR
                 return
             }
             
@@ -66,6 +70,15 @@ class StatusMenuWeatherController: NSObject {
             self.statusItem.title = temp + conditions
             
         }
+    }
+    
+    /**
+        Kick off a timer to refresh weather every x intervals in seconds.
+        - Parameters:
+            - minutes: Interval for timer.
+    */
+    func enableRefreshOnInterval(minutes : NSTimeInterval) {
+        NSTimer.scheduledTimerWithTimeInterval(minutes, target: self, selector: "updateWeather", userInfo: nil, repeats: true)
     }
     
     @IBAction func refreshClicked(sender: NSMenuItem) {
