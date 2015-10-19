@@ -8,7 +8,7 @@
 
 import Cocoa
 let DEFAULT_CITY: String = "Charleston, SC"
-let DEFAULT_TIMER_INTERVAL : NSTimeInterval = 1800
+let DEFAULT_TIMER_INTERVAL_IN_SECONDS : NSTimeInterval = 1800
 let INTERNET_CONNECTIVITY_ERROR = "..We are off the grid."
 let HTTP_ERROR = "..Trouble retrieving data."
 
@@ -27,7 +27,7 @@ class StatusMenuWeatherController: NSObject {
         statusItem.menu = statusMenu
         
         updateWeather()
-        enableRefreshOnInterval(DEFAULT_TIMER_INTERVAL)
+        enableRefreshOnInterval(DEFAULT_TIMER_INTERVAL_IN_SECONDS)
     }
     
     /**
