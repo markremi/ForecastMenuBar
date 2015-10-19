@@ -56,27 +56,12 @@ class WeatherAPI {
         let sessionTask = session.dataTaskWithURL(requestURL!) {
             (data, response, error) in
             
-            // Handle error.
-            if (error != nil) {
-                self.callback(result: "", error: error?.localizedDescription)
-            }
-            
             // Using the completionHandler override so we can get this value synchronously (like the rest of the applicaiton)
             completionHandler(data, error)
         }
         
         sessionTask.resume()
         return sessionTask
-    }
-    
-    typealias CallbackBlock = (result: String, error: String?) -> ()
-    var callback: CallbackBlock = {
-        (resultString, error) -> Void in
-        if error == nil {
-            print(resultString)
-        } else {
-            print(error)
-        }
     }
     
 //    func getWeatherByCity(city: String) {
