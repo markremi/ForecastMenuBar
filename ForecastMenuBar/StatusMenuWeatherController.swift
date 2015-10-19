@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+let DEFAULT_CITY: String = "Charleston, SC"
+let ERROR_MESSAGE = "..Trouble retrieving data"
 
 class StatusMenuWeatherController: NSObject {
     
@@ -17,38 +19,61 @@ class StatusMenuWeatherController: NSObject {
     let weatherAPI = WeatherAPI()
 
     override func awakeFromNib() {
-        statusItem.title = "Weather Forecast Bar"
-        statusItem.toolTip = ".. local weather"
+        statusItem.title = "... Retrieving local weather"
+        statusItem.toolTip = "Local weather"
         statusItem.menu = statusMenu
+        
+        updateWeather()
     }
     
-    @IBAction func refreshClicked(sender: NSMenuItem) {
-
+    /**
+        Get weather update.
+    */
+    func updateWeather() {
+        
         // Refresh local weather.
-        _ = weatherAPI.getWeatherByCity("Charleston, SC") { data, error in
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let city = defaults.stringForKey("city") ?? DEFAULT_CITY
+        
+        _ = weatherAPI.getWeatherByCity(city) { data, error in
             
             // Handle error.
             if (error != nil) {
                 print ("Encountered error during API call:")
                 print (error)
+                self.statusItem.title = ERROR_MESSAGE
+                return
             }
             
             let weather = self.weatherAPI.parseJSON(data!)
             
+            if (weather?.httpCode != 200) {
+                self.statusItem.title = ERROR_MESSAGE
+                return
+            }
+            
             // Format Strings.
             let temp = NSString(
-                format: "%.1f °F, ",
+                format: "%.1f° ",
                 weather!.currentTemp) as String
             let conditions = weather!.conditions.capitalizedString
-            
+        
+            // Grab icon.
+            let icon = self.weatherAPI.getIcon(weather!.icon)
+        
             // Set values on status menu bar.
+            self.statusItem.image = icon
             self.statusItem.title = temp + conditions
+            
         }
+    }
+    
+    @IBAction func refreshClicked(sender: NSMenuItem) {
+        updateWeather()
     }
     
     @IBAction func preferencesClicked(sender: NSMenuItem) {
         // Preferences.
-        
     }
     
     @IBAction func quitClicked(sender: NSMenuItem) {
