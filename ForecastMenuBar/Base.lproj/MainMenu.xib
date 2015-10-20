@@ -42,7 +42,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="yO6-ie-KyW"/>
-                <menuItem title="© Mark Remi (2015)" id="7VK-cd-89l">
+                <menuItem title="  © Mark Remi (2015)" id="7VK-cd-89l">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
             </items>

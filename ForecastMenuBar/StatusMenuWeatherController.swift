@@ -12,7 +12,7 @@ let DEFAULT_CITY: String = "Charleston,SC"
 var timer: NSTimer?
 
 // Timers
-let DEFAULT_TIMER_INTERVAL_IN_SECONDS : NSTimeInterval = 600
+let DEFAULT_TIMER_INTERVAL_IN_SECONDS : NSTimeInterval = 900
 
 // Errors
 let INTERNET_CONNECTIVITY_ERROR = "..We are off the grid."

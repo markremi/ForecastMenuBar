@@ -49,26 +49,6 @@ class WeatherAPI {
         return sessionTask
     }
     
-//    func getWeatherByCity(city: String) {
-//        
-//        // Set up session.
-//        let session = NSURLSession.sharedSession()
-//        let escapedQuery = city.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
-//
-//        // Creating empty Weather
-//        var weather : Weather? = nil
-//        
-//        let requestURL = NSURL(string: URL + escapedQuery!)
-//        let task = session.dataTaskWithURL(requestURL!) {
-//            (data, response, error) in
-//            
-//            // Get weather from parseJSON
-//            parseJSON(data!)!
-//        }
-//        
-//        task.resume()
-//    }
-    
     /**
         Transform NSData to JSON, then parse value to Weather struct.
     
@@ -79,7 +59,7 @@ class WeatherAPI {
         
         let json = JSON(data: data)
         if (json != nil) {
-            print("JSON value : ")
+            NSLog("%@", "Json value: ")
             print(json)
         } else {
             print("JSON is nil!")
