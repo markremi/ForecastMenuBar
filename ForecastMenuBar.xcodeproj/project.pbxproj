@@ -13,6 +13,7 @@
 		B8B546041BBA36D300CCB6A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B546031BBA36D300CCB6A0 /* AppDelegate.swift */; };
 		B8B546061BBA36D300CCB6A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8B546051BBA36D300CCB6A0 /* Assets.xcassets */; };
 		B8B546091BBA36D300CCB6A0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8B546071BBA36D300CCB6A0 /* MainMenu.xib */; };
+		B8F7BE0E1BD5C7D50025C981 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F7BE0D1BD5C7D50025C981 /* Weather.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B8B546051BBA36D300CCB6A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8B546081BBA36D300CCB6A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		B8B5460A1BBA36D300CCB6A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8F7BE0D1BD5C7D50025C981 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				B8A0BAEE1BC06C3500867749 /* StatusMenuWeatherController.swift */,
 				B8A0BAF01BC070B000867749 /* WeatherAPI.swift */,
 				B837EA601BD32394007FFCCF /* SwiftyJSON.swift */,
+				B8F7BE0D1BD5C7D50025C981 /* Weather.swift */,
 			);
 			path = ForecastMenuBar;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 				B8B546041BBA36D300CCB6A0 /* AppDelegate.swift in Sources */,
 				B8A0BAEF1BC06C3500867749 /* StatusMenuWeatherController.swift in Sources */,
 				B837EA611BD32394007FFCCF /* SwiftyJSON.swift in Sources */,
+				B8F7BE0E1BD5C7D50025C981 /* Weather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +248,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ForecastMenuBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.markremi.ForecastMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -256,6 +261,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = ForecastMenuBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.markremi.ForecastMenuBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

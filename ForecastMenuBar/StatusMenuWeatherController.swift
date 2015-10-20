@@ -7,8 +7,14 @@
 //
 
 import Cocoa
-let DEFAULT_CITY: String = "Charleston, SC"
-let DEFAULT_TIMER_INTERVAL_IN_SECONDS : NSTimeInterval = 1800
+
+let DEFAULT_CITY: String = "Charleston,SC"
+var timer: NSTimer?
+
+// Timers
+let DEFAULT_TIMER_INTERVAL_IN_SECONDS : NSTimeInterval = 600
+
+// Errors
 let INTERNET_CONNECTIVITY_ERROR = "..We are off the grid."
 let HTTP_ERROR = "..Trouble retrieving data."
 
@@ -27,7 +33,7 @@ class StatusMenuWeatherController: NSObject {
         statusItem.menu = statusMenu
         
         updateWeather()
-        enableRefreshOnInterval(DEFAULT_TIMER_INTERVAL_IN_SECONDS)
+        startTimer(DEFAULT_TIMER_INTERVAL_IN_SECONDS)
     }
     
     /**
@@ -68,7 +74,6 @@ class StatusMenuWeatherController: NSObject {
             // Set values on status menu bar.
             self.statusItem.image = icon
             self.statusItem.title = temp + conditions
-            
         }
     }
     
@@ -77,8 +82,15 @@ class StatusMenuWeatherController: NSObject {
         - Parameters:
             - minutes: Interval for timer.
     */
-    func enableRefreshOnInterval(minutes : NSTimeInterval) {
-        NSTimer.scheduledTimerWithTimeInterval(minutes, target: self, selector: "updateWeather", userInfo: nil, repeats: true)
+    func startTimer(seconds : NSTimeInterval) {
+        timer = NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: "updateWeather", userInfo: nil, repeats: true)
+    }
+    
+    /**
+        Stop timer.
+    */
+    func stopTimer() {
+        timer!.invalidate()
     }
     
     @IBAction func refreshClicked(sender: NSMenuItem) {

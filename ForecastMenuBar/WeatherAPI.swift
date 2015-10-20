@@ -11,28 +11,13 @@ import Cocoa
 import SwiftyJSON
 
 /// Base url for Openweathermap
-let BASE_URL : String = "http://api.openweathermap.org/data/2.5/weather?units=imperial"
+let BASE_URL : String = "http://api.openweathermap.org/data/2.5/weather?"
 let ICON_URL : String = "http://openweathermap.org/img/w/"
 let ICON_EXTENSION : String = ".png"
 let ICON_SIZE: CGFloat = 30
 
 /// App id.
 let APP_ID = "fecc856e95228926c6d5e20b245bde91"
-
-/** 
-    Basic Weather object.
-    - Parameters:
-        - city
-        - currentTemp: Current temperature.
-        - conditions: Current weather description.
-*/
-struct Weather {
-    var city: String
-    var currentTemp: Float
-    var conditions: String
-    var icon: String
-    var httpCode: Int
-}
 
 class WeatherAPI {
 
@@ -100,32 +85,39 @@ class WeatherAPI {
             print("JSON is nil!")
         }
        
-        let httpCode = json["cod"].intValue
+        // Build weather
+        let weather = Weather()
+        weather.httpCode = json["cod"].intValue
         
-        // List of weather codes
-        var id:Int
-        var main : String
-        var icon : String = ""
-        var description : String = ""
-        var temperature : Float = 0
-        var city : String = ""
-        
-        if (httpCode == 200) {
+        // If successful...
+        if (weather.httpCode == 200) {
             
-            city = json["name"].string!
-            temperature = json["main"]["temp"].float!
+            // TODO: Possible nil value here?
+            weather.currentTemp = convertKelvinToFahrenheit(json["main"]["temp"].floatValue)
             
             // Lets grab all the JSON values here.
-            for climate in json["weather"].arrayValue {
-                id = climate["id"].intValue
-                main = climate["main"].stringValue
-                icon = climate["icon"].stringValue
-                description = climate["description"].stringValue
-            }
+            weather.city = json["name"].stringValue
+            weather.country = json["sys"]["country"].stringValue
+            weather.windSpeed = json["wind"]["speed"].intValue
+            weather.windChill = json["wind"]["deg"].floatValue
+            weather.sunrise = NSDate(timeIntervalSince1970: json["sys"]["sunrise"].doubleValue)
+            weather.sunset = NSDate(timeIntervalSince1970: json["sys"]["sunset"].doubleValue)
+            weather.humidity = json["main"]["humidity"].intValue
+            weather.maximumTemperature = json["main"]["temp_max"].floatValue
+            weather.minimumTemperature = json["main"]["temp_min"].floatValue
+            weather.pressure = json["main"]["pressure"].intValue
+            weather.longitude = json["coord"]["lon"].floatValue
+            weather.latitude = json["coord"]["lat"].floatValue
+            weather.visibility = json["visibility"].intValue
+            
+            // Only the first list item matters.
+            weather.id = json["weather"][0]["id"].intValue
+            weather.conditions = json["weather"][0]["main"].stringValue
+            weather.icon = json["weather"][0]["icon"].stringValue
+            weather.cloudiness = json["weather"][0]["description"].stringValue
         }
         
-        // Build weather
-        return Weather(city: city, currentTemp: temperature, conditions: description, icon: icon, httpCode: httpCode)
+        return weather
     }
     
     /**
@@ -138,5 +130,14 @@ class WeatherAPI {
         let icon = NSImage(byReferencingURL: iconRequestURL!)
         icon.size = NSMakeSize(ICON_SIZE, ICON_SIZE)
         return icon
+    }
+    
+    /**
+        Convert kelvin to fahrenheit.
+        - Parameters:
+            - kelvin: Temperature in kelvin.
+    */
+    func convertKelvinToFahrenheit(kelvin: Float) -> Float {
+        return ((9/5)*(kelvin-273)+32)
     }
 }
