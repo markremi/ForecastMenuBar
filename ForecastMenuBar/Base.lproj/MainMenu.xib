@@ -16,25 +16,27 @@
         <customObject id="ylS-Bf-3Ba" userLabel="StatusMenuWeatherController" customClass="StatusMenuWeatherController" customModule="ForecastMenuBar" customModuleProvider="target">
             <connections>
                 <outlet property="StatusMenu" destination="V1r-TH-as2" id="nsb-ch-0cf"/>
+                <outlet property="iconButton" destination="iz3-cM-8dR" id="gad-jo-TFg"/>
+                <outlet property="optionsView" destination="jax-Bo-iN3" id="xbK-X5-1Ce"/>
+                <outlet property="refreshIntervalText" destination="O0d-6f-mKG" id="Smv-su-sh1"/>
+                <outlet property="refreshSlider" destination="6Tx-xC-9Ot" id="R98-dV-76G"/>
             </connections>
         </customObject>
         <menu id="V1r-TH-as2" userLabel="StatusMenu">
             <items>
                 <menuItem isSeparatorItem="YES" id="ohv-DR-zdb"/>
-                <menuItem title="Refresh local weather" id="a8d-EH-vsc">
+                <menuItem title="Update weather..." id="a8d-EH-vsc">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="refreshClicked:" target="ylS-Bf-3Ba" id="FQJ-De-XZq"/>
                     </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="olM-Co-F25"/>
-                <menuItem title="Preferences..." id="RR7-rh-jI7">
+                <menuItem isSeparatorItem="YES" id="TtJ-lG-te1"/>
+                <menuItem title="Refresh Interval" id="O0d-6f-mKG">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="preferencesClicked:" target="ylS-Bf-3Ba" id="Kia-RV-qcz"/>
-                    </connections>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="lVp-Fd-vcr"/>
+                <menuItem isSeparatorItem="YES" id="olM-Co-F25"/>
+                <menuItem isSeparatorItem="YES" id="xjP-H4-RF2"/>
                 <menuItem title="Quit" id="ZgH-hV-SPD">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -51,5 +53,111 @@
             </connections>
             <point key="canvasLocation" x="156" y="369.5"/>
         </menu>
+        <sliderCell controlSize="small" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="NfX-ds-7HS"/>
+        <sliderCell controlSize="small" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="i8a-Hx-q2N"/>
+        <slider verticalHuggingPriority="750" id="6Tx-xC-9Ot">
+            <rect key="frame" x="0.0" y="0.0" width="193" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <animations/>
+            <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="5" maxValue="30" doubleValue="30" tickMarkPosition="below" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="xnq-Aj-dLE" userLabel="Refresh Interval">
+                <connections>
+                    <action selector="refreshIntervalMovement:" target="ylS-Bf-3Ba" id="Si2-h9-ujA"/>
+                </connections>
+            </sliderCell>
+            <point key="canvasLocation" x="155.5" y="190.5"/>
+        </slider>
+        <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" id="jax-Bo-iN3">
+            <rect key="frame" x="0.0" y="0.0" width="189" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView fixedFrame="YES" id="ZVR-Id-vjk">
+                    <rect key="frame" x="0.0" y="0.0" width="91" height="96"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <subviews>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-cM-8dR">
+                            <rect key="frame" x="5" y="72" width="81" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Icon" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="m3y-Mz-aAH">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="iconButtonAction:" target="ylS-Bf-3Ba" id="cmB-es-WEK"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B5u-WD-FY8">
+                            <rect key="frame" x="5" y="52" width="65" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Clouds" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Bjl-pK-Dyv">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="heQ-Rt-Aof">
+                            <rect key="frame" x="5" y="32" width="84" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Wind Chill" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="W3X-ve-u3e">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S9v-Zw-I8V">
+                            <rect key="frame" x="5" y="12" width="81" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Humidity" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="LV8-0D-jfC">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </subviews>
+                    <animations/>
+                </customView>
+                <customView fixedFrame="YES" id="1d3-ax-p3i">
+                    <rect key="frame" x="101" y="0.0" width="88" height="96"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <subviews>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xxC-rS-Cv2">
+                            <rect key="frame" x="4" y="71" width="81" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Pressure" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="9G9-qV-fg1">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qnI-pl-B7L">
+                            <rect key="frame" x="4" y="51" width="81" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Visibility" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EsC-tj-H4a">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ruU-tQ-LKN">
+                            <rect key="frame" x="4" y="31" width="81" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Sunrise" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Nnw-tW-JSj">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wXt-nl-rl3">
+                            <rect key="frame" x="4" y="11" width="81" height="18"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Sunset" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MY1-de-0LZ">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                    </subviews>
+                    <animations/>
+                </customView>
+            </subviews>
+            <animations/>
+            <holdingPriorities>
+                <real value="250"/>
+                <real value="250"/>
+            </holdingPriorities>
+            <point key="canvasLocation" x="155.5" y="554"/>
+        </splitView>
     </objects>
 </document>
