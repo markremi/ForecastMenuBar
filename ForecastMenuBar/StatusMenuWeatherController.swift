@@ -10,7 +10,6 @@ import Cocoa
 
 let DEFAULT_CITY: String = "Charleston,SC"
 var timer: NSTimer?
-var menuBarText = [String]()
 var weather: Weather?
 
 // Timers
@@ -27,28 +26,18 @@ class StatusMenuWeatherController: NSObject {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var refreshSlider: NSSlider!
     @IBOutlet weak var refreshIntervalText: NSMenuItem!
-    @IBOutlet weak var optionsView: NSSplitView!
-    
-    /// Options
-    @IBOutlet weak var iconButton: NSButton!
-    
-    
     
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
-    
     let weatherAPI = WeatherAPI()
 
     override func awakeFromNib() {
+        
+        setDefaults()
         
         // Let's build UI here.
         let refreshSliderMenuItem = NSMenuItem()
         refreshSliderMenuItem.view = refreshSlider
         statusMenu.insertItem(refreshSliderMenuItem, atIndex: 3)
-        
-        let optionsViewMenuItem = NSMenuItem()
-        optionsViewMenuItem.view = optionsView
-        statusMenu.insertItem(optionsViewMenuItem, atIndex: 5)
-        
 
         // Set default settings.
         statusItem.title = "... Retrieving local weather"
@@ -57,7 +46,7 @@ class StatusMenuWeatherController: NSObject {
         refreshIntervalText.title = String(refreshSlider.intValue) + " Min Refresh Interval"
 
         updateWeather()
-        startTimer(DEFAULT_TIMER_INTERVAL_IN_SECONDS)
+        startTimer(Double(refreshSlider.intValue)*60)
     }
     
     
@@ -151,15 +140,10 @@ class StatusMenuWeatherController: NSObject {
         NSApplication.sharedApplication().terminate(self)
     }
     
-    /// Option Buttons
-    @IBAction func iconButtonAction(sender: NSButton) {
-        
-        if (sender.state == NSOnState) {
-            let icon = self.weatherAPI.getIcon(weather!.icon)
-            self.statusItem.image = icon
-        } else {
-            self.statusItem.image = nil
-        }
+    /**
+        Set application defaults.
+    */
+    func setDefaults() {
+        refreshSlider.intValue = 30
     }
-    
 }
