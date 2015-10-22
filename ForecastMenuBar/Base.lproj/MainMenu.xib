@@ -16,6 +16,7 @@
         <customObject id="ylS-Bf-3Ba" userLabel="StatusMenuWeatherController" customClass="StatusMenuWeatherController" customModule="ForecastMenuBar" customModuleProvider="target">
             <connections>
                 <outlet property="StatusMenu" destination="V1r-TH-as2" id="nsb-ch-0cf"/>
+                <outlet property="humidityButton" destination="S9v-Zw-I8V" id="I8p-ak-7ce"/>
                 <outlet property="iconButton" destination="iz3-cM-8dR" id="gad-jo-TFg"/>
                 <outlet property="optionsView" destination="jax-Bo-iN3" id="xbK-X5-1Ce"/>
                 <outlet property="refreshIntervalText" destination="O0d-6f-mKG" id="Smv-su-sh1"/>
@@ -66,25 +67,14 @@
             </sliderCell>
             <point key="canvasLocation" x="155.5" y="190.5"/>
         </slider>
-        <splitView arrangesAllSubviews="NO" dividerStyle="paneSplitter" vertical="YES" id="jax-Bo-iN3">
+        <splitView dividerStyle="thin" vertical="YES" id="jax-Bo-iN3">
             <rect key="frame" x="0.0" y="0.0" width="189" height="96"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView fixedFrame="YES" id="ZVR-Id-vjk">
-                    <rect key="frame" x="0.0" y="0.0" width="91" height="96"/>
+                    <rect key="frame" x="0.0" y="0.0" width="95" height="96"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <subviews>
-                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-cM-8dR">
-                            <rect key="frame" x="5" y="72" width="81" height="18"/>
-                            <animations/>
-                            <buttonCell key="cell" type="check" title="Icon" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="m3y-Mz-aAH">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="iconButtonAction:" target="ylS-Bf-3Ba" id="cmB-es-WEK"/>
-                            </connections>
-                        </button>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B5u-WD-FY8">
                             <rect key="frame" x="5" y="52" width="65" height="18"/>
                             <animations/>
@@ -108,12 +98,26 @@
                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="humidityButtonAction:" target="ylS-Bf-3Ba" id="H36-WY-8Vg"/>
+                            </connections>
+                        </button>
+                        <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iz3-cM-8dR">
+                            <rect key="frame" x="5" y="67" width="73" height="25"/>
+                            <animations/>
+                            <buttonCell key="cell" type="check" title="Icon" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="m3y-Mz-aAH">
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="iconButtonAction:" target="ylS-Bf-3Ba" id="cmB-es-WEK"/>
+                            </connections>
                         </button>
                     </subviews>
                     <animations/>
                 </customView>
                 <customView fixedFrame="YES" id="1d3-ax-p3i">
-                    <rect key="frame" x="101" y="0.0" width="88" height="96"/>
+                    <rect key="frame" x="96" y="0.0" width="93" height="96"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <subviews>
                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xxC-rS-Cv2">

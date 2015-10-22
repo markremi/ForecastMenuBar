@@ -10,8 +10,9 @@ import Cocoa
 
 let DEFAULT_CITY: String = "Charleston,SC"
 var timer: NSTimer?
-var menuBarText = [String]()
+//var menuBarText = [String]()
 var weather: Weather?
+var menuBarItems = ["" : ""]
 
 // Timers
 let DEFAULT_TIMER_INTERVAL_IN_SECONDS : NSTimeInterval = 900
@@ -31,7 +32,7 @@ class StatusMenuWeatherController: NSObject {
     
     /// Options
     @IBOutlet weak var iconButton: NSButton!
-    
+    @IBOutlet weak var humidityButton: NSButton!
     
     
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
@@ -39,6 +40,8 @@ class StatusMenuWeatherController: NSObject {
     let weatherAPI = WeatherAPI()
 
     override func awakeFromNib() {
+        
+        setDefaults()
         
         // Let's build UI here.
         let refreshSliderMenuItem = NSMenuItem()
@@ -51,13 +54,13 @@ class StatusMenuWeatherController: NSObject {
         
 
         // Set default settings.
-        statusItem.title = "... Retrieving local weather"
+//        statusItem.title = "... Retrieving local weather"
         statusItem.toolTip = "Local weather"
         statusItem.menu = statusMenu
         refreshIntervalText.title = String(refreshSlider.intValue) + " Min Refresh Interval"
 
         updateWeather()
-        startTimer(DEFAULT_TIMER_INTERVAL_IN_SECONDS)
+        startTimer(Double(refreshSlider.intValue))
     }
     
     
@@ -115,15 +118,30 @@ class StatusMenuWeatherController: NSObject {
         
             // Grab icon.
             let icon = self.weatherAPI.getIcon(weather!.icon)
+            
+            menuBarItems["temp"] = temp
+            menuBarItems["conditions"] = conditions
+            menuBarItems["humidity"] = String(weather!.humidity) + "% Humidity"
         
             // Set values on status menu bar.
             self.statusItem.image = icon
-            self.statusItem.title = temp + conditions
+            self.statusItem.title = self.menuBarItemsAsString()
         }
     }
     
     /**
-        Kick off a timer to refresh weather every x intervals in seconds.
+        Print all menu bar item labels as String.
+    */
+    func menuBarItemsAsString() -> String {
+        var menuBarText = String()
+        for (_, value) in menuBarItems {
+            menuBarText += value + " "
+        }
+        return menuBarText
+    }
+    
+    /**
+        Kick off a timer to refresh weather every x inervals in seconds.
         - Parameters:
             - minutes: Interval for timer.
     */
@@ -162,4 +180,20 @@ class StatusMenuWeatherController: NSObject {
         }
     }
     
+    @IBAction func humidityButtonAction(sender: NSButton) {
+        if (sender.state == NSOffState) {
+            menuBarItems.removeValueForKey("humidity")
+        } else {
+            menuBarItems{"humidity"] = we
+        }
+    }
+    
+    /**
+        Set application defaults.
+    */
+    func setDefaults() {
+        
+        refreshSlider.intValue = 30
+        iconButton.state = NSOnState
+    }
 }

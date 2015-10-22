@@ -12,6 +12,7 @@ import SwiftyJSON
 
 /// Base url for Openweathermap
 let BASE_URL : String = "http://api.openweathermap.org/data/2.5/weather?"
+//let BASE_URL : String = "http://api.openweathermap.org/data/2.5/forecast/daily?&cnt=1"
 let ICON_URL : String = "http://openweathermap.org/img/w/"
 let ICON_EXTENSION : String = ".png"
 let ICON_SIZE: CGFloat = 30
