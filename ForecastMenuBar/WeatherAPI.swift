@@ -11,13 +11,13 @@ import Cocoa
 import SwiftyJSON
 
 /// Base url for Openweathermap
-let BASE_URL : String = "http://api.openweathermap.org/data/2.5/weather?"
+let BASE_URL : String = "http://api.apixu.com/v1/current.json?" // apixu.com
 let ICON_URL : String = "http://openweathermap.org/img/w/"
 let ICON_EXTENSION : String = ".png"
 let ICON_SIZE: CGFloat = 30
 
 /// App id.
-let APP_ID = "fecc856e95228926c6d5e20b245bde91"
+let APP_ID = "3b8fcd75998d4e6584330944152210" // apixu.com
 
 class WeatherAPI {
 
@@ -28,7 +28,7 @@ class WeatherAPI {
     */
     func getWeatherByCity(city: String, completionHandler: (NSData?, NSError?) -> Void) -> NSURLSessionTask  {
 
-        let URL = BASE_URL + "&APPID=" + APP_ID + "&q="
+        let URL = BASE_URL + "&key=" + APP_ID + "&q="
         
         /// Set up session.
         let session = NSURLSession.sharedSession()
@@ -67,34 +67,72 @@ class WeatherAPI {
        
         // Build weather
         let weather = Weather()
-        weather.httpCode = json["cod"].intValue
+        weather.city = json["location"]["name"].stringValue
         
         // If successful...
-        if (weather.httpCode == 200) {
+        if (weather.city != "") {
             
             // TODO: Possible nil value here?
-            weather.currentTemp = convertKelvinToFahrenheit(json["main"]["temp"].floatValue)
+            weather.currentTemp = json["current"]["temp_f"].floatValue
+            weather.httpCode = 200
+            
+//                {
+//                    "current" : {
+//                        "wind_degree" : 0,
+//                        "condition" : {
+//                            "code" : 1009,
+//                            "text" : "Overcast",
+//                            "icon" : "\/\/cdn.apixu.com\/weather\/64x64\/night\/122.png"
+//                        },
+//                        "pressure_mb" : 1026,
+//                        "last_updated_epoch" : 1445470206,
+//                        "last_updated" : "2015-10-21 23:30",
+//                        "temp_c" : 19,
+//                        "wind_dir" : "N",
+//                        "wind_mph" : 0,
+//                        "precip_in" : 0,
+//                        "humidity" : 94,
+//                        "cloud" : 100,
+//                        "feelslike_f" : 66.2,
+//                        "temp_f" : 66.2,
+//                        "wind_kph" : 0,
+//                        "pressure_in" : 30.8,
+//                        "precip_mm" : 0,
+//                        "feelslike_c" : 19
+//                    },
+//                    "location" : {
+//                        "region" : "South Carolina",
+//                        "country" : "United States Of America",
+//                        "localtime" : "2015-10-21 23:33",
+//                        "lon" : -79.93000000000001,
+//                        "lat" : 32.78,
+//                        "tz_id" : "America\/New_York",
+//                        "name" : "Charleston",
+//                        "localtime_epoch" : 1445470431
+//                    }
+//            }
+            
             
             // Lets grab all the JSON values here.
-            weather.city = json["name"].stringValue
-            weather.country = json["sys"]["country"].stringValue
-            weather.windSpeed = json["wind"]["speed"].intValue
-            weather.windChill = json["wind"]["deg"].floatValue
-            weather.sunrise = NSDate(timeIntervalSince1970: json["sys"]["sunrise"].doubleValue)
-            weather.sunset = NSDate(timeIntervalSince1970: json["sys"]["sunset"].doubleValue)
-            weather.humidity = json["main"]["humidity"].intValue
+            weather.region = json["location"]["region"].stringValue
+            weather.country = json["location"]["country"].stringValue
+            weather.windSpeed = json["wind_mph"].intValue
+            weather.windDirection = json["wind_dir"].stringValue
+            weather.windChill = json["current"]["wind_degree"].floatValue
+            weather.humidity = json["humidity"].intValue
             weather.maximumTemperature = json["main"]["temp_max"].floatValue
             weather.minimumTemperature = json["main"]["temp_min"].floatValue
-            weather.pressure = json["main"]["pressure"].intValue
+            weather.pressure = json["pressure_mb"].intValue
             weather.longitude = json["coord"]["lon"].floatValue
             weather.latitude = json["coord"]["lat"].floatValue
             weather.visibility = json["visibility"].intValue
+            weather.feelsLike = json["feelslike_f"].floatValue
+            weather.precipitation = json["precip_in"].floatValue
             
             // Only the first list item matters.
-            weather.id = json["weather"][0]["id"].intValue
-            weather.conditions = json["weather"][0]["main"].stringValue
-            weather.icon = json["weather"][0]["icon"].stringValue
-            weather.cloudiness = json["weather"][0]["description"].stringValue
+            weather.conditions = json["current"]["condition"]["text"].stringValue
+            weather.icon = json["current"]["condition"]["icon"].stringValue
+            weather.cloud = json["cloud"].intValue
         }
         
         return weather
@@ -106,7 +144,7 @@ class WeatherAPI {
             - iconId: The unique identification for icon location.
     */
     func getIcon(iconId: String) -> NSImage {
-        let iconRequestURL = NSURL(string: ICON_URL + iconId + ICON_EXTENSION)
+        let iconRequestURL = NSURL(string: "http:" + iconId)
         let icon = NSImage(byReferencingURL: iconRequestURL!)
         icon.size = NSMakeSize(ICON_SIZE, ICON_SIZE)
         return icon

@@ -25,14 +25,16 @@ class Weather {
     
     var city: String
     var country: String
+    var region: String
     var currentTemp: Float
     var conditions: String
     var icon: String
     var httpCode: Int
-    var cloudiness: String
+    var cloud: Int
     var id: Int
-    var windSpeed: Int
     var windChill: Float
+    var windSpeed: Int
+    var windDirection: String
     var sunrise: NSDate
     var sunset: NSDate
     var humidity: Int
@@ -42,18 +44,22 @@ class Weather {
     var latitude: Float
     var longitude: Float
     var visibility: Int
+    var feelsLike: Float
+    var precipitation: Float
 
     init() {
         city = ""
         country = ""
+        region = ""
         currentTemp = 0
         conditions = ""
         icon = ""
         httpCode = 0
-        cloudiness = ""
+        cloud = 0
         id = 0
-        windSpeed = 0
         windChill = 0
+        windSpeed = 0
+        windDirection = ""
         sunrise = NSDate()
         sunset = NSDate()
         humidity = 0
@@ -63,5 +69,7 @@ class Weather {
         latitude = 0
         longitude = 0
         visibility = 0
+        feelsLike = 0
+        precipitation = 0
     }
 }
