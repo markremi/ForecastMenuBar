@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let DEFAULT_CITY: String = "Charleston,SC"
+var DEFAULT_CITY: String = "Charleston,SC"
 var timer: NSTimer?
 var weather: Weather?
 
@@ -26,7 +26,8 @@ class StatusMenuWeatherController: NSObject {
     @IBOutlet weak var statusMenu: NSMenu!
     @IBOutlet weak var refreshSlider: NSSlider!
     @IBOutlet weak var refreshIntervalText: NSMenuItem!
-    @IBOutlet weak var optionsView: NSSplitView!
+    @IBOutlet weak var cityTextField: NSTextField!
+    @IBOutlet weak var cityView: NSTableCellView!
     
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
     
@@ -37,9 +38,13 @@ class StatusMenuWeatherController: NSObject {
         setDefaults()
         
         // Let's build UI here.
+        let cityMenuItem = NSMenuItem()
+        cityMenuItem.view = cityView
+        statusMenu.insertItem(cityMenuItem, atIndex: 1)
+        
         let refreshSliderMenuItem = NSMenuItem()
         refreshSliderMenuItem.view = refreshSlider
-        statusMenu.insertItem(refreshSliderMenuItem, atIndex: 3)
+        statusMenu.insertItem(refreshSliderMenuItem, atIndex: 4)
         
 
         // Set default settings.
@@ -48,7 +53,7 @@ class StatusMenuWeatherController: NSObject {
         statusItem.menu = statusMenu
         refreshIntervalText.title = String(refreshSlider.intValue) + " Min Refresh Interval"
 
-        updateWeather()
+        updateWeather(DEFAULT_CITY)
         startTimer(Double(refreshSlider.intValue)*60)
     }
     
@@ -73,14 +78,21 @@ class StatusMenuWeatherController: NSObject {
         }
     }
 
+    @IBAction func cityTextFieldChanges(sender: NSTextField) {
+        cityTextField.resignFirstResponder()
+        DEFAULT_CITY = sender.stringValue
+        sender.stringValue = DEFAULT_CITY.capitalizedString
+        updateWeather(DEFAULT_CITY)
+    }
+    
     /**
         Get weather update.
     */
-    func updateWeather() {
+    func updateWeather(city: String) {
         
-        // Refresh local weather.
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let city = defaults.stringForKey("city") ?? DEFAULT_CITY
+//        // Refresh local weather.
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        let city = defaults.stringForKey("city") ?? DEFAULT_CITY
         
         _ = weatherAPI.getWeatherByCity(city) { data, error in
             
@@ -131,7 +143,7 @@ class StatusMenuWeatherController: NSObject {
     }
     
     @IBAction func refreshClicked(sender: NSMenuItem) {
-        updateWeather()
+        updateWeather(DEFAULT_CITY)
     }
     
     @IBAction func preferencesClicked(sender: NSMenuItem) {
