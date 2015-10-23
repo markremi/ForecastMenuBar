@@ -8,7 +8,6 @@
 
 import Foundation
 import Cocoa
-import SwiftyJSON
 
 /// Base url for Openweathermap
 let BASE_URL : String = "http://api.openweathermap.org/data/2.5/weather?"
@@ -74,12 +73,12 @@ class WeatherAPI {
         if (weather.httpCode == 200) {
             
             // TODO: Possible nil value here?
-            weather.currentTemp = convertKelvinToFahrenheit(json["main"]["temp"].floatValue)
+            weather.currentTemp = convertKelvinToFahrenheit(json["main"]["temp_min"].floatValue)
             
             // Lets grab all the JSON values here.
             weather.city = json["name"].stringValue
             weather.country = json["sys"]["country"].stringValue
-            weather.windSpeed = json["wind"]["speed"].intValue
+            weather.windDirection = json["wind"]["speed"].floatValue
             weather.windChill = json["wind"]["deg"].floatValue
             weather.sunrise = NSDate(timeIntervalSince1970: json["sys"]["sunrise"].doubleValue)
             weather.sunset = NSDate(timeIntervalSince1970: json["sys"]["sunset"].doubleValue)

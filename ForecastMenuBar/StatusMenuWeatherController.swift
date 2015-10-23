@@ -10,9 +10,7 @@ import Cocoa
 
 let DEFAULT_CITY: String = "Charleston,SC"
 var timer: NSTimer?
-//var menuBarText = [String]()
 var weather: Weather?
-var menuBarItems = ["" : ""]
 
 // Timers
 let DEFAULT_TIMER_INTERVAL_IN_SECONDS : NSTimeInterval = 900
@@ -30,11 +28,6 @@ class StatusMenuWeatherController: NSObject {
     @IBOutlet weak var refreshIntervalText: NSMenuItem!
     @IBOutlet weak var optionsView: NSSplitView!
     
-    /// Options
-    @IBOutlet weak var iconButton: NSButton!
-    @IBOutlet weak var humidityButton: NSButton!
-    
-    
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
     
     let weatherAPI = WeatherAPI()
@@ -48,19 +41,15 @@ class StatusMenuWeatherController: NSObject {
         refreshSliderMenuItem.view = refreshSlider
         statusMenu.insertItem(refreshSliderMenuItem, atIndex: 3)
         
-        let optionsViewMenuItem = NSMenuItem()
-        optionsViewMenuItem.view = optionsView
-        statusMenu.insertItem(optionsViewMenuItem, atIndex: 5)
-        
 
         // Set default settings.
-//        statusItem.title = "... Retrieving local weather"
+        statusItem.title = "... Retrieving local weather"
         statusItem.toolTip = "Local weather"
         statusItem.menu = statusMenu
         refreshIntervalText.title = String(refreshSlider.intValue) + " Min Refresh Interval"
 
         updateWeather()
-        startTimer(Double(refreshSlider.intValue))
+        startTimer(Double(refreshSlider.intValue)*60)
     }
     
     
@@ -118,26 +107,11 @@ class StatusMenuWeatherController: NSObject {
         
             // Grab icon.
             let icon = self.weatherAPI.getIcon(weather!.icon)
-            
-            menuBarItems["temp"] = temp
-            menuBarItems["conditions"] = conditions
-            menuBarItems["humidity"] = String(weather!.humidity) + "% Humidity"
-        
+
             // Set values on status menu bar.
             self.statusItem.image = icon
-            self.statusItem.title = self.menuBarItemsAsString()
+            self.statusItem.title = temp + conditions
         }
-    }
-    
-    /**
-        Print all menu bar item labels as String.
-    */
-    func menuBarItemsAsString() -> String {
-        var menuBarText = String()
-        for (_, value) in menuBarItems {
-            menuBarText += value + " "
-        }
-        return menuBarText
     }
     
     /**
@@ -169,31 +143,10 @@ class StatusMenuWeatherController: NSObject {
         NSApplication.sharedApplication().terminate(self)
     }
     
-    /// Option Buttons
-    @IBAction func iconButtonAction(sender: NSButton) {
-        
-        if (sender.state == NSOnState) {
-            let icon = self.weatherAPI.getIcon(weather!.icon)
-            self.statusItem.image = icon
-        } else {
-            self.statusItem.image = nil
-        }
-    }
-    
-    @IBAction func humidityButtonAction(sender: NSButton) {
-        if (sender.state == NSOffState) {
-            menuBarItems.removeValueForKey("humidity")
-        } else {
-            menuBarItems{"humidity"] = we
-        }
-    }
-    
     /**
         Set application defaults.
     */
     func setDefaults() {
-        
         refreshSlider.intValue = 30
-        iconButton.state = NSOnState
     }
 }

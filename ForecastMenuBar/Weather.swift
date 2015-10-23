@@ -31,7 +31,7 @@ class Weather {
     var httpCode: Int
     var cloudiness: String
     var id: Int
-    var windSpeed: Int
+    var windDirection: Float
     var windChill: Float
     var sunrise: NSDate
     var sunset: NSDate
@@ -52,7 +52,7 @@ class Weather {
         httpCode = 0
         cloudiness = ""
         id = 0
-        windSpeed = 0
+        windDirection = 0
         windChill = 0
         sunrise = NSDate()
         sunset = NSDate()
