@@ -90,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForecastMenuBar/StatusMenuWeatherController.swift"
-            timestampString = "467170932.748742"
+            timestampString = "467477821.42118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "updateWeather()"
-            landmarkType = "5">
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "StatusMenuWeatherController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -127,8 +127,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "parseJSON(_:)"
-            landmarkType = "5">
+            landmarkName = "WeatherAPI"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -138,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForecastMenuBar/StatusMenuWeatherController.swift"
-            timestampString = "467170378.434009"
+            timestampString = "467477821.42118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "updateWeather()"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "updateWeather(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,12 +170,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForecastMenuBar/StatusMenuWeatherController.swift"
-            timestampString = "467170378.434009"
+            timestampString = "467477821.42118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "updateWeather()"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "updateWeather(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -186,12 +186,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForecastMenuBar/StatusMenuWeatherController.swift"
-            timestampString = "467170378.434009"
+            timestampString = "467477821.42118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "updateWeather()"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "updateWeather(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -202,12 +202,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForecastMenuBar/StatusMenuWeatherController.swift"
-            timestampString = "467170932.748742"
+            timestampString = "467477821.42118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "stopTimer()"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "quitClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -218,12 +218,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForecastMenuBar/StatusMenuWeatherController.swift"
-            timestampString = "467170932.748742"
+            timestampString = "467477821.42118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "startTimer(_:)"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "preferencesClicked(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -266,13 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForecastMenuBar/StatusMenuWeatherController.swift"
-            timestampString = "467170932.748742"
+            timestampString = "467477821.42118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "iconButtonAction(_:)"
-            landmarkType = "5">
+            startingLineNumber = "181"
+            endingLineNumber = "181">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

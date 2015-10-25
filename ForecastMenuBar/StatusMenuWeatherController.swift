@@ -24,10 +24,13 @@ class StatusMenuWeatherController: NSObject {
     
     /// Menu Items
     @IBOutlet weak var statusMenu: NSMenu!
-    @IBOutlet weak var refreshSlider: NSSlider!
+//    @IBOutlet weak var refreshSlider: NSSlider!
+
     @IBOutlet weak var refreshIntervalText: NSMenuItem!
     @IBOutlet weak var cityTextField: NSTextField!
     @IBOutlet weak var cityView: NSTableCellView!
+    @IBOutlet weak var refreshSlider: NSSlider!
+    @IBOutlet weak var refreshSliderView: NSView!
     
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
     
@@ -42,9 +45,13 @@ class StatusMenuWeatherController: NSObject {
         cityMenuItem.view = cityView
         statusMenu.insertItem(cityMenuItem, atIndex: 1)
         
+//        let rvItem = NSMenuItem()
+//        rvItem.view = rv
+//        statusMenu.insertItem(rvItem, atIndex: 6)
+        
         let refreshSliderMenuItem = NSMenuItem()
-        refreshSliderMenuItem.view = refreshSlider
-        statusMenu.insertItem(refreshSliderMenuItem, atIndex: 4)
+        refreshSliderMenuItem.view = refreshSliderView
+        statusMenu.insertItem(refreshSliderMenuItem, atIndex: 5)
         
 
         // Set default settings.
@@ -57,25 +64,23 @@ class StatusMenuWeatherController: NSObject {
         startTimer(Double(refreshSlider.intValue)*60)
     }
     
-    
     /**
         Update refresh interval text and update timer interval.
     */
-    @IBAction func refreshIntervalMovement(sender: NSSliderCell) {
-        
+    @IBAction func refreshIntervalMovement(sender: NSSlider) {
         // Update slider.
-        refreshIntervalText.title = String(sender.intValue) + " Min Refresh Interval"
+                refreshIntervalText.title = String(sender.intValue) + " Min Refresh Interval"
         
-        // Get mouse event for mouseUp.
-        let anEvent = NSApplication.sharedApplication().currentEvent
+                // Get mouse event for mouseUp.
+                let anEvent = NSApplication.sharedApplication().currentEvent
         
-        let mouseUp = anEvent?.type == NSEventType.LeftMouseUp
-        if (mouseUp) {
-            
-            // Update interval.
-            stopTimer()
-            startTimer(Double(sender.intValue)*60)
-        }
+                let mouseUp = anEvent?.type == NSEventType.LeftMouseUp
+                if (mouseUp) {
+        
+                    // Update interval.
+                    stopTimer()
+                    startTimer(Double(sender.intValue)*60)
+                }
     }
 
     @IBAction func cityTextFieldChanges(sender: NSTextField) {
