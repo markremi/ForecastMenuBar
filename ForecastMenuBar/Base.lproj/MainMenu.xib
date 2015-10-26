@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9059" systemVersion="15A278b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
-        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -16,19 +15,19 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <customObject id="ylS-Bf-3Ba" userLabel="StatusMenuWeatherController" customClass="StatusMenuWeatherController" customModule="ForecastMenuBar" customModuleProvider="target">
             <connections>
-                <outlet property="StatusMenu" destination="V1r-TH-as2" id="nsb-ch-0cf"/>
-                <outlet property="cityTextField" destination="9ab-AV-OOo" id="Glp-ib-LnU"/>
-                <outlet property="cityView" destination="fzC-sQ-peC" id="RdF-Ak-XpO"/>
-                <outlet property="refreshIntervalText" destination="O0d-6f-mKG" id="Smv-su-sh1"/>
+                <outlet property="IdLabel" destination="g94-9y-uG7" id="2O5-so-2be"/>
+                <outlet property="cityTextField" destination="576-mv-E8f" id="9ro-gx-CbB"/>
+                <outlet property="cityView" destination="zME-lo-838" id="lrg-7G-aaS"/>
+                <outlet property="idLabel" destination="l8r-Xd-Skl" id="B3d-QS-1sT"/>
+                <outlet property="refreshIntervalText" destination="luo-ag-714" id="zXv-NL-tU4"/>
                 <outlet property="refreshSlider" destination="0e7-fh-q2n" id="3G2-Fq-Oiy"/>
                 <outlet property="refreshSliderView" destination="RoC-pZ-WGc" id="UKf-R0-VdB"/>
-                <outlet property="rv" destination="RoC-pZ-WGc" id="BzG-Oz-UHF"/>
+                <outlet property="statusMenu" destination="V1r-TH-as2" id="rSg-SB-yJU"/>
             </connections>
         </customObject>
         <menu title="Status Menu" id="V1r-TH-as2" userLabel="StatusMenu">
             <items>
                 <menuItem isSeparatorItem="YES" id="ohv-DR-zdb"/>
-                <menuItem isSeparatorItem="YES" id="aFH-Rw-ASW"/>
                 <menuItem title="Update weather..." id="a8d-EH-vsc">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -36,10 +35,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="TtJ-lG-te1"/>
-                <menuItem title="Refresh Interval" id="O0d-6f-mKG">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="olM-Co-F25"/>
+                <menuItem isSeparatorItem="YES" id="Wus-Rt-Mx1"/>
                 <menuItem isSeparatorItem="YES" id="xjP-H4-RF2"/>
                 <menuItem title="Quit" id="ZgH-hV-SPD">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -55,68 +51,89 @@
             <connections>
                 <outlet property="delegate" destination="ylS-Bf-3Ba" id="lYI-5p-oMu"/>
             </connections>
-            <point key="canvasLocation" x="82.5" y="451.5"/>
+            <point key="canvasLocation" x="82.5" y="511.5"/>
         </menu>
-        <tableCellView toolTip="Charleston, SC" id="fzC-sQ-peC">
-            <rect key="frame" x="0.0" y="0.0" width="190" height="28"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PnA-wc-SlS">
-                    <rect key="frame" x="55" y="3" width="127" height="22"/>
-                    <subviews>
-                        <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ab-AV-OOo">
-                            <rect key="frame" x="0.0" y="0.0" width="127" height="22"/>
-                            <animations/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="Charleston, SC" placeholderString="" drawsBackground="YES" usesSingleLineMode="YES" id="qze-TY-ixY">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                            <connections>
-                                <action selector="cityTextFieldChanges:" target="ylS-Bf-3Ba" id="jJR-TZ-bAi"/>
-                            </connections>
-                        </textField>
-                    </subviews>
-                    <animations/>
-                    <visibilityPriorities>
-                        <integer value="1000"/>
-                    </visibilityPriorities>
-                    <customSpacing>
-                        <real value="3.4028234663852886e+38"/>
-                    </customSpacing>
-                </stackView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49c-SO-TEi">
-                    <rect key="frame" x="17" y="6" width="32" height="17"/>
-                    <animations/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="City:" id="1Ow-0y-P6U">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-            </subviews>
-            <animations/>
-            <point key="canvasLocation" x="232" y="495"/>
-        </tableCellView>
         <customView id="RoC-pZ-WGc" userLabel="Refresh View">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="27"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="52"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <slider verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0e7-fh-q2n">
-                    <rect key="frame" x="13" y="2" width="174" height="27"/>
+                <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0e7-fh-q2n">
+                    <rect key="frame" x="13" y="27" width="174" height="27"/>
                     <animations/>
                     <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="5" maxValue="30" doubleValue="30" tickMarkPosition="below" numberOfTickMarks="10" sliderType="linear" id="Qd3-hy-SAh"/>
                     <connections>
                         <action selector="refreshIntervalMovement:" target="ylS-Bf-3Ba" id="fAn-Eo-jFb"/>
                     </connections>
                 </slider>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="luo-ag-714">
+                    <rect key="frame" x="13" y="6" width="174" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="otw-Pp-QUS">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="luo-ag-714" secondAttribute="trailing" constant="15" id="1LK-eT-45j"/>
+                <constraint firstAttribute="trailing" secondItem="luo-ag-714" secondAttribute="trailing" constant="15" id="Ifh-RY-LTZ"/>
+                <constraint firstItem="luo-ag-714" firstAttribute="top" secondItem="0e7-fh-q2n" secondAttribute="bottom" constant="5" id="KoC-6I-SPe"/>
                 <constraint firstItem="0e7-fh-q2n" firstAttribute="leading" secondItem="RoC-pZ-WGc" secondAttribute="leading" constant="15" id="Ojb-LL-5tZ"/>
                 <constraint firstAttribute="trailing" secondItem="0e7-fh-q2n" secondAttribute="trailing" constant="15" id="XLg-Ud-svS"/>
+                <constraint firstItem="luo-ag-714" firstAttribute="leading" secondItem="RoC-pZ-WGc" secondAttribute="leading" constant="15" id="pzg-qK-NQk"/>
+                <constraint firstItem="0e7-fh-q2n" firstAttribute="top" secondItem="RoC-pZ-WGc" secondAttribute="top" id="x0f-uj-mYg" userLabel="Refresh Slider.top = 15"/>
             </constraints>
             <animations/>
-            <point key="canvasLocation" x="82" y="286.5"/>
+            <point key="canvasLocation" x="82" y="196"/>
+        </customView>
+        <customView id="zME-lo-838" userLabel="City View">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VdW-U2-MLN">
+                    <rect key="frame" x="13" y="32" width="32" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="City:" id="cc7-22-OJ2">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="576-mv-E8f">
+                    <rect key="frame" x="45" y="29" width="140" height="22"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" title="Not Found" drawsBackground="YES" id="cBw-MX-bbK">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <action selector="cityTextFieldChanges:" target="ylS-Bf-3Ba" id="zIv-Kc-IaB"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8r-Xd-Skl">
+                    <rect key="frame" x="13" y="7" width="174" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Id:" id="g94-9y-uG7" userLabel="Id">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="VdW-U2-MLN" firstAttribute="leading" secondItem="zME-lo-838" secondAttribute="leading" constant="15" id="2lZ-gB-Oc0"/>
+                <constraint firstItem="l8r-Xd-Skl" firstAttribute="top" secondItem="576-mv-E8f" secondAttribute="bottom" constant="7" id="MFX-RE-2M0"/>
+                <constraint firstItem="576-mv-E8f" firstAttribute="leading" secondItem="VdW-U2-MLN" secondAttribute="trailing" constant="2" id="S75-zV-MLx"/>
+                <constraint firstItem="576-mv-E8f" firstAttribute="top" secondItem="zME-lo-838" secondAttribute="top" constant="5" id="SXJ-Ww-b6t"/>
+                <constraint firstAttribute="trailing" secondItem="576-mv-E8f" secondAttribute="trailing" constant="15" id="Vvu-pW-IXN"/>
+                <constraint firstItem="VdW-U2-MLN" firstAttribute="top" secondItem="zME-lo-838" secondAttribute="top" constant="7" id="WtX-1M-IAx"/>
+                <constraint firstItem="l8r-Xd-Skl" firstAttribute="leading" secondItem="zME-lo-838" secondAttribute="leading" constant="15" id="m5C-a5-iqE"/>
+                <constraint firstAttribute="trailing" secondItem="l8r-Xd-Skl" secondAttribute="trailing" constant="15" id="zoL-RE-2DY"/>
+            </constraints>
+            <animations/>
+            <point key="canvasLocation" x="77" y="329"/>
         </customView>
     </objects>
 </document>

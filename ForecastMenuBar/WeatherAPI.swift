@@ -91,7 +91,7 @@ class WeatherAPI {
             weather.visibility = json["visibility"].intValue
             
             // Only the first list item matters.
-            weather.id = json["weather"][0]["id"].intValue
+            weather.id = json["id"].intValue
             weather.conditions = json["weather"][0]["main"].stringValue
             weather.icon = json["weather"][0]["icon"].stringValue
             weather.cloudiness = json["weather"][0]["description"].stringValue

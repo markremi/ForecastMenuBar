@@ -24,16 +24,20 @@ class StatusMenuWeatherController: NSObject {
     
     /// Menu Items
     @IBOutlet weak var statusMenu: NSMenu!
-//    @IBOutlet weak var refreshSlider: NSSlider!
-
-    @IBOutlet weak var refreshIntervalText: NSMenuItem!
+    
+    @IBOutlet weak var cityView: NSView!
     @IBOutlet weak var cityTextField: NSTextField!
-    @IBOutlet weak var cityView: NSTableCellView!
+
+    
+//    @IBOutlet weak var cityTextField: NSTextField!
+//    @IBOutlet weak var cityView: NSTableCellView!
+    @IBOutlet weak var idLabel: NSTextField!
+    
     @IBOutlet weak var refreshSlider: NSSlider!
     @IBOutlet weak var refreshSliderView: NSView!
+    @IBOutlet weak var refreshIntervalText: NSTextField!
     
     let statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
-    
     let weatherAPI = WeatherAPI()
 
     override func awakeFromNib() {
@@ -43,22 +47,17 @@ class StatusMenuWeatherController: NSObject {
         // Let's build UI here.
         let cityMenuItem = NSMenuItem()
         cityMenuItem.view = cityView
-        statusMenu.insertItem(cityMenuItem, atIndex: 1)
-        
-//        let rvItem = NSMenuItem()
-//        rvItem.view = rv
-//        statusMenu.insertItem(rvItem, atIndex: 6)
+        statusMenu.insertItem(cityMenuItem, atIndex: 3)
         
         let refreshSliderMenuItem = NSMenuItem()
         refreshSliderMenuItem.view = refreshSliderView
         statusMenu.insertItem(refreshSliderMenuItem, atIndex: 5)
         
-
         // Set default settings.
-        statusItem.title = "... Retrieving local weather"
-        statusItem.toolTip = "Local weather"
-        statusItem.menu = statusMenu
-        refreshIntervalText.title = String(refreshSlider.intValue) + " Min Refresh Interval"
+        self.statusItem.title = "... Retrieving local weather"
+        self.statusItem.toolTip = "Local weather"
+        self.statusItem.menu = statusMenu
+        refreshIntervalText.stringValue = String(refreshSlider.intValue) + " Min Refresh Interval"
 
         updateWeather(DEFAULT_CITY)
         startTimer(Double(refreshSlider.intValue)*60)
@@ -69,22 +68,30 @@ class StatusMenuWeatherController: NSObject {
     */
     @IBAction func refreshIntervalMovement(sender: NSSlider) {
         // Update slider.
-                refreshIntervalText.title = String(sender.intValue) + " Min Refresh Interval"
+        refreshIntervalText.stringValue = String(sender.intValue) + " Min Refresh Interval"
         
-                // Get mouse event for mouseUp.
-                let anEvent = NSApplication.sharedApplication().currentEvent
+        // Get mouse event for mouseUp.
+        let anEvent = NSApplication.sharedApplication().currentEvent
         
-                let mouseUp = anEvent?.type == NSEventType.LeftMouseUp
-                if (mouseUp) {
+        let mouseUp = anEvent?.type == NSEventType.LeftMouseUp
+        if (mouseUp) {
         
-                    // Update interval.
-                    stopTimer()
-                    startTimer(Double(sender.intValue)*60)
-                }
+            // Update interval.
+            stopTimer()
+            startTimer(Double(sender.intValue)*60)
+        }
     }
 
     @IBAction func cityTextFieldChanges(sender: NSTextField) {
-        cityTextField.resignFirstResponder()
+        // Select All
+        // Get mouse event for mouseUp.
+        let anEvent = NSApplication.sharedApplication().currentEvent
+        let mouseDown = anEvent?.type == NSEventType.MouseEntered
+        if (mouseDown) {
+            sender.selectAll(self)
+        }
+        
+        // cityTextField.resignFirstResponder()
         DEFAULT_CITY = sender.stringValue
         sender.stringValue = DEFAULT_CITY.capitalizedString
         updateWeather(DEFAULT_CITY)
@@ -95,11 +102,7 @@ class StatusMenuWeatherController: NSObject {
     */
     func updateWeather(city: String) {
         
-//        // Refresh local weather.
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        let city = defaults.stringForKey("city") ?? DEFAULT_CITY
-        
-        _ = weatherAPI.getWeatherByCity(city) { data, error in
+        weatherAPI.getWeatherByCity(city) { data, error in
             
             // Handle error.
             if (error != nil) {
@@ -128,6 +131,14 @@ class StatusMenuWeatherController: NSObject {
             // Set values on status menu bar.
             self.statusItem.image = icon
             self.statusItem.title = temp + conditions
+            
+            print (weather!.id)
+            
+            // Update city name
+            if !(weather!.city.isEmpty) {
+                self.cityTextField.stringValue = (weather?.city)! + ", " + (weather?.country)!
+                self.idLabel.stringValue = "Id: " + weather!.id.description
+            }
         }
     }
     
@@ -165,5 +176,17 @@ class StatusMenuWeatherController: NSObject {
     */
     func setDefaults() {
         refreshSlider.intValue = 30
+        refreshIntervalText.textColor = NSColor.grayColor()
+        cityTextField.textColor = NSColor.blackColor()
+        idLabel.textColor = NSColor.grayColor()
+    }
+}
+
+class TextFieldSubclass: NSTextField {
+    override func mouseDown(theEvent: NSEvent) {
+        super.mouseDown(theEvent)
+        if let textEditor = currentEditor() {
+            textEditor.selectAll(self)
+        }
     }
 }
